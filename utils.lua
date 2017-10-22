@@ -40,8 +40,6 @@ function load_spritesheet (file, size_x, size_y)
   for x=0, size_x - 1 do
     spritesheet.cell[x] = {}
     for y=0, size_y - 1 do
-      print("x = " .. x);
-      print("y = " .. y);
       spritesheet.cell[y * size_x + x] = love.graphics.newQuad(x, y, 1, 1, size_x, size_y)
     end
   end
@@ -59,7 +57,7 @@ function create_empty_world (size_x, size_y)
     new_world.cell[x] = {}
     for y=0, size_y-1 do
       new_world.cell[x][y] = {}
-      for i=0,2 do
+      for i=0,3 do
         new_world.cell[x][y][i] = 0
       end
     end
@@ -74,4 +72,8 @@ function draw_world_level(world, spritesheet, level, unit)
       spritesheet.cell[world.cell[x][y][level]], x * unit, y * unit, 0, unit, unit)
     end
   end
+end
+
+function to_world_space (x, y, cam)
+  return {x = x / cam.zoom + cam.x,y = y / cam.zoom + cam.y}
 end
